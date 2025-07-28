@@ -149,17 +149,14 @@ public class Task {
      * Convierte la tarea a una representación tipo JSON (como String).
      */
     public String toJson() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("{\n"); // Apertura del formato JSON
-        sb.append("\"id\": " + id + ",\n"); // Línea de id
-        sb.append("\"description\": " + description + ",\n"); // Línea de descripción
-        sb.append("\"status\": " + status + ",\n"); // Línea de status
-        sb.append("\"createdAt\": " + createdAt + ",\n"); // Línea de fecha de creación
-        sb.append("\"updatedAt\": " + updatedAt + ",\n"); // Línea de fecha de modificación
-        sb.append("}\n"); // Cierre del formato JSON
-
-        return sb.toString();
+        return String.format("{\n" +
+            "\"id\": %d,\n" +
+            "\"description\": \"%s\",\n" +
+            "\"status\": \"%s\",\n" +
+            "\"createdAt\": \"%s\",\n" +
+            "\"updatedAt\": \"%s\"\n" +
+            "}",
+            id, description, status, createdAt, updatedAt == null ? "null" : updatedAt);
     }
 
     /**

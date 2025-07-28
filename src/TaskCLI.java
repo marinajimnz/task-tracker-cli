@@ -14,5 +14,6 @@ public class TaskCLI {
         listaTareas.add(task3);
         listaTareas.add(task4);
         
+        System.out.println(task4.toJson());
     }
 }
