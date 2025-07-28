@@ -27,7 +27,7 @@ public class Task {
      * Atributo que representa el estado de la tarea.
      * Puede ser: to-do, in-progress o done.
      */
-    private String status;
+    private Status status;
 
     /**
      * Atributo que representa la fecha en la que se crea la tarea.
@@ -50,7 +50,7 @@ public class Task {
     public Task(String description) {
         id = nextId++;
         this.description = description;
-        this.status = "to-do";
+        this.status = Status.TO_DO;
         this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 
@@ -63,10 +63,10 @@ public class Task {
      * @param createdAt Fecha creación de la tarea.
      * @param updatedAt Fecha modificación de la tarea.
      */
-    public Task(String id, String description, String status, String createdAt, String updatedAt) {
+    public Task(String id, String description, Status status, String createdAt, String updatedAt) {
         this.id = Integer.parseInt(id);
         this.description = description;
-        this.status = "to-do";
+        this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -106,7 +106,7 @@ public class Task {
      * 
      * @return status Estado de la tarea.
      */
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
@@ -115,7 +115,7 @@ public class Task {
      * 
      * @param status Estado: "to-do", "in-progress" o "done".
      */
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
         updateTimestamp();
     }
@@ -194,6 +194,7 @@ public class Task {
         String id = "";
         String description = "";
         String status = "";
+        Status statusEnum = Status.TO_DO;
         String createdAt = "";
         String updatedAt = "";
 
@@ -217,7 +218,13 @@ public class Task {
                     description = value;
                     break;
                 case "status":
-                    status = value;
+                    if(value == "TO_DO") {
+                        statusEnum = Status.TO_DO;
+                    } else if(value == "IN_PROGRESS") {
+                        statusEnum = Status.IN_PROGRESS;
+                    } else if(status == "DONE") {
+                        statusEnum = Status.DONE;
+                    } 
                     break;
                 case "createdAt":
                     createdAt = value;
@@ -235,7 +242,7 @@ public class Task {
             throw new IllegalArgumentException("The id is already in use.");
         }
 
-        return new Task(id, description, status, createdAt, updatedAt);
+        return new Task(id, description, statusEnum, createdAt, updatedAt);
     }
 
     /**
