@@ -1,0 +1,39 @@
+# Compiled class files
+/bin/
+/*.class
+**/*.class
+
+# VSCode settings
+.vscode/
+
+# IntelliJ IDEA settings (por si alguien lo usa)
+*.iml
+.idea/
+
+# Librerías externas
+/lib/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de respaldo temporales
+*~
+*.swp
+*.bak
+*.tmp
+
+# Archivos de log
+*.log
+
+# Archivos de configuración local
+settings.json
+
+# Salida de pruebas, resultados, etc.
+*.out
+*.test
+
+# Otros posibles archivos generados
+*.jar
+*.war
+*.ear
