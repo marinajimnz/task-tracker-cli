@@ -44,7 +44,6 @@ public class Task {
     /**
      * Constructor para crear una nueva tarea desde consola.
      * 
-     * @param id Identificador único de la tarea.
      * @param description Descripción de la tarea.
      */
     public Task(String description) {
