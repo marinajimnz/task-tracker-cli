@@ -2,18 +2,47 @@ import java.util.ArrayList;
 
 public class TaskCLI {
     public static void main(String[] args) throws Exception {
-        // Pruebas
-        Task task1 = new Task( "Desayunar");
-        Task task2 = new Task( "Comer");
-        Task task3 = new Task( "Merendar");
-        Task task4 = new Task( "Cenar");
+        TaskManager taskManager = new TaskManager();
 
-        ArrayList<Task> listaTareas = new ArrayList<>();
-        listaTareas.add(task1);
-        listaTareas.add(task2);
-        listaTareas.add(task3);
-        listaTareas.add(task4);
+        if(args.length < 1) {
+            throw new IllegalArgumentException("To use the task app you havo to write in the command line:\n" + 
+                                "java -cp bin TaskCLI <command> \\\"[arguments]");
+        }
+
+        String command = args[0];
+
+        switch (command) {
+            case "add":
+                taskManager.addTask(args[1]);
+                break;
+            case "update":
+                taskManager.updateTask(Integer.parseInt(args[1]), args[2]);
+                break;
+            case "delete":
+                taskManager.deleteTask(Integer.parseInt(args[1]));
+                break;
+            case "mark-in-progress":
+                taskManager.markInProgress(Integer.parseInt(args[1]));
+                break;
+            case "mark-done":
+                taskManager.markDone(Integer.parseInt(args[1]));
+                break;
+            case "list-done":
+                taskManager.listTasksByStatus(Status.DONE);
+                break;
+            case "list-to-do":
+                taskManager.listTasksByStatus(Status.TO_DO);                
+                break;
+            case "list-in-progress":
+                taskManager.listTasksByStatus(Status.IN_PROGRESS);
+                break;
+            case "list-all":
+                taskManager.listAllTasks();
+                break;
+                
+            default:
+                break;
+        }
         
-        System.out.println(task4.toJson());
     }
 }

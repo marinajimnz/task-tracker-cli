@@ -39,7 +39,7 @@ public class TaskManager {
     public void addTask(String description) {
         Task newTask = new Task(description);
         tasks.add(newTask);
-        System.out.println("Task added successfully (ID: " + newTask.getId());
+        System.out.println("Task added successfully (ID: " + newTask.getId() + ")");
     }
 
     /**
