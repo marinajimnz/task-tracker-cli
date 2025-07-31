@@ -65,7 +65,9 @@ public class TaskManager {
         Task taskToDelete = getTaskById(id);
         if(taskToDelete != null) {
             tasks.remove(taskToDelete);
+            saveTasks();
         }
+
     }
 
     /**
@@ -77,6 +79,7 @@ public class TaskManager {
         Task taskToUpdate = getTaskById(id);
         if(taskToUpdate != null) {
             taskToUpdate.setStatus(Status.IN_PROGRESS);
+            saveTasks();
         }
     }
 
@@ -87,6 +90,7 @@ public class TaskManager {
      */
     public void markInProgress(int id) {
         updateStatus(id, Status.IN_PROGRESS);
+        saveTasks();
     }
 
     /**
@@ -96,6 +100,7 @@ public class TaskManager {
      */
     public void markDone(int id) {
         updateStatus(id, Status.DONE);
+        saveTasks();
     }
 
     /**

@@ -31,7 +31,7 @@ public class TaskCLI {
                 taskManager.listTasksByStatus(Status.DONE);
                 break;
             case "list-to-do":
-                taskManager.listTasksByStatus(Status.TO_DO);                
+                taskManager.listTasksByStatus(Status.TO_DO);            
                 break;
             case "list-in-progress":
                 taskManager.listTasksByStatus(Status.IN_PROGRESS);
@@ -41,6 +41,7 @@ public class TaskCLI {
                 break;
                 
             default:
+                System.out.println("Unknown command.");
                 break;
         }
         
