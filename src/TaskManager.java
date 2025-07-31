@@ -50,7 +50,10 @@ public class TaskManager {
      */
     public void updateTask(int id, String newDescription) {
         Task taskToUpdate = getTaskById(id);
-        taskToUpdate.setDescription(newDescription);
+        if(taskToUpdate != null) {
+            taskToUpdate.setDescription(newDescription);
+        }
+
     }
 
     /**
@@ -60,7 +63,21 @@ public class TaskManager {
      */
     public void deleteTask(int id) {
         Task taskToDelete = getTaskById(id);
-        tasks.remove(taskToDelete);
+        if(taskToDelete != null) {
+            tasks.remove(taskToDelete);
+        }
+    }
+
+    /**
+     * Cambia el estado de una tarea.
+     * 
+     * @param id ID de la tarea.
+     */
+    public void updateStatus(int id, Status status) {
+        Task taskToUpdate = getTaskById(id);
+        if(taskToUpdate != null) {
+            taskToUpdate.setStatus(Status.IN_PROGRESS);
+        }
     }
 
     /**
@@ -69,8 +86,7 @@ public class TaskManager {
      * @param id ID de la tarea.
      */
     public void markInProgress(int id) {
-        Task taskToUpdate = getTaskById(id);
-        taskToUpdate.setStatus(Status.IN_PROGRESS);
+        updateStatus(id, Status.IN_PROGRESS);
     }
 
     /**
@@ -79,8 +95,7 @@ public class TaskManager {
      * @param id ID de la tarea.
      */
     public void markDone(int id) {
-        Task taskToUpdate = getTaskById(id);
-        taskToUpdate.setStatus(Status.DONE);
+        updateStatus(id, Status.DONE);
     }
 
     /**
@@ -130,7 +145,7 @@ public class TaskManager {
         ArrayList<Task> taskList = new ArrayList<>();
 
         if (!Files.exists(FILE_PATH)) { // Si el archivo no existe
-            throw new IllegalArgumentException("The file named tasks.json doensn't exist.");
+            return taskList;
         }
 
         // Si el archivo existe.
