@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -78,7 +79,7 @@ public class TaskManager {
     public void updateStatus(int id, Status status) {
         Task taskToUpdate = getTaskById(id);
         if (taskToUpdate != null) {
-            taskToUpdate.setStatus(Status.IN_PROGRESS);
+            taskToUpdate.setStatus(status);
             saveTasks();
         }
     }

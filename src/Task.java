@@ -215,11 +215,11 @@ public class Task {
                     description = value;
                     break;
                 case "status":
-                    if (value == "TO_DO") {
+                    if (value.equals("TO_DO")) {
                         statusEnum = Status.TO_DO;
-                    } else if (value == "IN_PROGRESS") {
+                    } else if (value.equals("IN_PROGRESS")) {
                         statusEnum = Status.IN_PROGRESS;
-                    } else if (status == "DONE") {
+                    } else if (value.equals("DONE")) {
                         statusEnum = Status.DONE;
                     }
                     break;
