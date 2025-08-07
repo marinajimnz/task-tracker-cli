@@ -9,7 +9,7 @@ public class TaskCLI {
                                 "java -cp bin TaskCLI <command> \\\"[arguments]");
         }
 
-        String command = args[0];
+        String command = args[0].toLowerCase();
 
         switch (command) {
             case "add":
