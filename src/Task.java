@@ -232,10 +232,9 @@ public class Task {
         }
 
         // Para comprobar que los id son únicos.
-        if (Integer.parseInt(id) > nextId) {
-            nextId = Integer.parseInt(id);
-        } else if (Integer.parseInt(id) < nextId) {
-            throw new IllegalArgumentException("The id is already in use.");
+        int taskId = Integer.parseInt(id);
+        if (taskId >= nextId) {
+            nextId = taskId + 1;
         }
 
         return new Task(id, description, statusEnum, createdAt, updatedAt);
