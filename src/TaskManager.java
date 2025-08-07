@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -50,7 +51,7 @@ public class TaskManager {
      */
     public void updateTask(int id, String newDescription) {
         Task taskToUpdate = getTaskById(id);
-        if(taskToUpdate != null) {
+        if (taskToUpdate != null) {
             taskToUpdate.setDescription(newDescription);
         }
 
@@ -63,7 +64,7 @@ public class TaskManager {
      */
     public void deleteTask(int id) {
         Task taskToDelete = getTaskById(id);
-        if(taskToDelete != null) {
+        if (taskToDelete != null) {
             tasks.remove(taskToDelete);
             saveTasks();
         }
@@ -77,7 +78,7 @@ public class TaskManager {
      */
     public void updateStatus(int id, Status status) {
         Task taskToUpdate = getTaskById(id);
-        if(taskToUpdate != null) {
+        if (taskToUpdate != null) {
             taskToUpdate.setStatus(Status.IN_PROGRESS);
             saveTasks();
         }
@@ -107,7 +108,7 @@ public class TaskManager {
      * Lista todas las tareas.
      */
     public void listAllTasks() {
-        for(Task task : tasks) {
+        for (Task task : tasks) {
             System.out.println(task.toString());
         }
     }
@@ -118,10 +119,10 @@ public class TaskManager {
      * @param status Estado: "to-do", "in-progress", "done".
      */
     public void listTasksByStatus(Status status) {
-            for(Task task : tasks) {
-                if(task.getStatus().equals(status)) {
-                    System.out.println(task.toString());
-                }
+        for (Task task : tasks) {
+            if (task.getStatus().equals(status)) {
+                System.out.println(task.toString());
+            }
         }
     }
 
@@ -130,15 +131,16 @@ public class TaskManager {
      */
     public void saveTasks() {
         ArrayList<String> jsonTasks = new ArrayList<>();
-        for(Task task : tasks) {
+        for (Task task : tasks) {
             jsonTasks.add(task.toJson());
         }
 
-        String jsonContent = "[\n" + String.join(",\n", jsonTasks) + "\n]"; // Añade corchetes al principio y final del JSON
+        String jsonContent = "[\n" + String.join(",\n", jsonTasks) + "\n]"; // Añade corchetes al principio y final del
+                                                                            // JSON
 
         try { // Intenta escribir en el archivo
             Files.writeString(FILE_PATH, jsonContent);
-        } catch(IOException e) { // Si no lo consigue
+        } catch (IOException e) { // Si no lo consigue
             System.out.println("Tasks couldn't be saved to the JSON file.");
         }
     }
@@ -159,13 +161,18 @@ public class TaskManager {
             if (fileContent.startsWith("[") && fileContent.endsWith("]")) {
                 fileContent = fileContent.substring(1, fileContent.length() - 1).trim();
 
+                // ✅ Verificación clave para evitar error con archivo vacío (solo "[]")
+                if (fileContent.isEmpty()) {
+                    return taskList;
+                }
+
                 // Separa los objetos por "},"
                 String[] taskArray = fileContent.split("(?<=\\}),\\s*");
 
                 for (String taskJson : taskArray) {
                     taskJson = taskJson.trim();
 
-                    // Asegura que cada objeto termina con }.
+                    // Asegura que cada objeto termina con }
                     if (!taskJson.endsWith("}")) {
                         taskJson += "}";
                     }
@@ -187,8 +194,8 @@ public class TaskManager {
      * @return Tarea encontrada o null si no existe.
      */
     public Task getTaskById(int id) {
-        for(Task task : tasks) {
-            if(task.getId() == id) {
+        for (Task task : tasks) {
+            if (task.getId() == id) {
                 return task;
             }
         }
