@@ -56,11 +56,11 @@ public class Task {
     /**
      * Constructor para crear una nueva tarea desde JSON.
      * 
-     * @param id Identificador único de la tarea.
+     * @param id          Identificador único de la tarea.
      * @param description Descripción de la tarea.
-     * @param status Estado de la tarea.
-     * @param createdAt Fecha creación de la tarea.
-     * @param updatedAt Fecha modificación de la tarea.
+     * @param status      Estado de la tarea.
+     * @param createdAt   Fecha creación de la tarea.
+     * @param updatedAt   Fecha modificación de la tarea.
      */
     public Task(String id, String description, Status status, String createdAt, String updatedAt) {
         this.id = Integer.parseInt(id);
@@ -149,13 +149,13 @@ public class Task {
      */
     public String toJson() {
         return String.format("{\n" +
-            "\"id\": %d,\n" +
-            "\"description\": \"%s\",\n" +
-            "\"status\": \"%s\",\n" +
-            "\"createdAt\": \"%s\",\n" +
-            "\"updatedAt\": \"%s\"\n" +
-            "}",
-            id, description, status, createdAt, updatedAt == null ? "null" : updatedAt);
+                "\"id\": %d,\n" +
+                "\"description\": \"%s\",\n" +
+                "\"status\": \"%s\",\n" +
+                "\"createdAt\": \"%s\",\n" +
+                "\"updatedAt\": \"%s\"\n" +
+                "}",
+                id, description, status, createdAt, updatedAt == null ? "null" : updatedAt);
     }
 
     /**
@@ -182,7 +182,8 @@ public class Task {
         // Separa elementos por coma (comas dentro de valores entre comillas no).
         String[] elements = jsonFile.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
-        // Captura el error si los elementos del JSON son diferentes a 5, que son los atributos del Task.
+        // Captura el error si los elementos del JSON son diferentes a 5, que son los
+        // atributos del Task.
         if (elements.length != 5) {
             throw new IllegalArgumentException("Invalid number of elements, must be 5.");
         }
@@ -196,7 +197,7 @@ public class Task {
 
         for (String element : elements) {
             String[] keyValue = element.trim().split(":", 2); // Solo puede haber 2 elemento: clave y valor.
-            
+
             if (keyValue.length != 2) {
                 continue;
             }
@@ -214,13 +215,13 @@ public class Task {
                     description = value;
                     break;
                 case "status":
-                    if(value == "TO_DO") {
+                    if (value == "TO_DO") {
                         statusEnum = Status.TO_DO;
-                    } else if(value == "IN_PROGRESS") {
+                    } else if (value == "IN_PROGRESS") {
                         statusEnum = Status.IN_PROGRESS;
-                    } else if(status == "DONE") {
+                    } else if (status == "DONE") {
                         statusEnum = Status.DONE;
-                    } 
+                    }
                     break;
                 case "createdAt":
                     createdAt = value;
@@ -232,10 +233,9 @@ public class Task {
         }
 
         // Para comprobar que los id son únicos.
-        if (Integer.parseInt(id) > nextId) {
-            nextId = Integer.parseInt(id);
-        } else if (Integer.parseInt(id) < nextId) {
-            throw new IllegalArgumentException("The id is already in use.");
+        int taskId = Integer.parseInt(id);
+        if (taskId >= nextId) {
+            nextId = taskId + 1;
         }
 
         return new Task(id, description, statusEnum, createdAt, updatedAt);
