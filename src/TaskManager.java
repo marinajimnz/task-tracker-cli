@@ -52,6 +52,9 @@ public class TaskManager {
         Task taskToUpdate = getTaskById(id);
         if (taskToUpdate != null) {
             taskToUpdate.setDescription(newDescription);
+            System.out.println("Task with id " + id + " updated successfully");
+        } else {
+            System.out.println("ID: " + id + " doesn't exist.");
         }
 
     }
@@ -65,7 +68,10 @@ public class TaskManager {
         Task taskToDelete = getTaskById(id);
         if (taskToDelete != null) {
             tasks.remove(taskToDelete);
+            System.out.println("Task with id " + id + " deleted successfully");
             saveTasks();
+        } else {
+            System.out.println("ID: " + id + " doesn't exist.");
         }
 
     }
@@ -78,8 +84,11 @@ public class TaskManager {
     public void updateStatus(int id, Status status) {
         Task taskToUpdate = getTaskById(id);
         if (taskToUpdate != null) {
-            taskToUpdate.setStatus(Status.IN_PROGRESS);
+            taskToUpdate.setStatus(status);
+            System.out.println("Task with id " + id + " updated successfully to status: " + status);
             saveTasks();
+        } else {
+            System.out.println("ID: " + id + " doesn't exist.");
         }
     }
 
