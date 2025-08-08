@@ -2,49 +2,49 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Tarea individual del Task Tracker.
+ * Individual task of the Task Tracker.
  */
 public class Task {
 
-    // ---- ATRIBUTOS ----
+    // ---- ATTRIBUTES ----
     /**
-     * Atributo que representa al id de la tarea.
+     * Attribute that represents the task id.
      */
     private int id;
 
     /**
-     * Atributo que representa al id de la tarea.
+     * Attribute that represents the task id.
      */
     private static int nextId = 1;
 
     /**
-     * Atributo que representa la descripción (texto) de la tarea.
+     * Attribute that represents the description (text) of the task.
      */
     private String description;
 
-    // TO-DO Crear ENUM para los estados
+    // TO-DO Create ENUM for states
     /**
-     * Atributo que representa el estado de la tarea.
-     * Puede ser: to-do, in-progress o done.
+     * Attribute that represents the task status.
+     * Can be: to-do, in-progress or done.
      */
     private Status status;
 
     /**
-     * Atributo que representa la fecha en la que se crea la tarea.
-     * En formato ISO 8601.
+     * Attribute that represents the date when the task is created.
+     * In ISO 8601 format.
      */
     private String createdAt;
 
     /**
-     * Atributo que representa la fecha en la que se modifica la tarea.
+     * Attribute that represents the date when the task is modified.
      */
     private String updatedAt = null;
 
-    // ---- CONSTRUCTORES ----
+    // ---- CONSTRUCTORS ----
     /**
-     * Constructor para crear una nueva tarea desde consola.
+     * Constructor to create a new task from console.
      * 
-     * @param description Descripción de la tarea.
+     * @param description Task description.
      */
     public Task(String description) {
         id = nextId++;
@@ -54,13 +54,13 @@ public class Task {
     }
 
     /**
-     * Constructor para crear una nueva tarea desde JSON.
+     * Constructor to create a new task from JSON.
      * 
-     * @param id          Identificador único de la tarea.
-     * @param description Descripción de la tarea.
-     * @param status      Estado de la tarea.
-     * @param createdAt   Fecha creación de la tarea.
-     * @param updatedAt   Fecha modificación de la tarea.
+     * @param id          Unique task identifier.
+     * @param description Task description.
+     * @param status      Task status.
+     * @param createdAt   Task creation date.
+     * @param updatedAt   Task modification date.
      */
     public Task(String id, String description, Status status, String createdAt, String updatedAt) {
         this.id = Integer.parseInt(id);
@@ -70,10 +70,10 @@ public class Task {
         this.updatedAt = updatedAt;
     }
 
-    // ---- MÉTODOS ----
+    // ---- METHODS ----
 
     /**
-     * Devuelve el ID de la tarea.
+     * Returns the task ID.
      * 
      * @return id
      */
@@ -82,7 +82,7 @@ public class Task {
     }
 
     /**
-     * Devuelve la descripción de la tarea.
+     * Returns the task description.
      * 
      * @return description
      */
@@ -91,9 +91,9 @@ public class Task {
     }
 
     /**
-     * Establece una nueva descripción para la tarea.
+     * Sets a new description for the task.
      * 
-     * @param description Nueva descripción.
+     * @param description New description.
      */
     public void setDescription(String description) {
         this.description = description;
@@ -101,18 +101,18 @@ public class Task {
     }
 
     /**
-     * Devuelve el estado actual de la tarea.
+     * Returns the current task status.
      * 
-     * @return status Estado de la tarea.
+     * @return status Task status.
      */
     public Status getStatus() {
         return status;
     }
 
     /**
-     * Establece el estado de la tarea.
+     * Sets the task status.
      * 
-     * @param status Estado: "to-do", "in-progress" o "done".
+     * @param status Status: "to-do", "in-progress" or "done".
      */
     public void setStatus(Status status) {
         this.status = status;
@@ -120,32 +120,32 @@ public class Task {
     }
 
     /**
-     * Devuelve la fecha de creación.
+     * Returns the creation date.
      * 
-     * @return createdAt Fecha de creación.
+     * @return createdAt Creation date.
      */
     public String getCreatedAt() {
         return createdAt;
     }
 
     /**
-     * Devuelve la fecha de última modificación.
+     * Returns the last modification date.
      * 
-     * @return updatedAt Fecha de modificación.
+     * @return updatedAt Modification date.
      */
     public String getUpdatedAt() {
         return updatedAt;
     }
 
     /**
-     * Actualiza la fecha de última modificación a la actual.
+     * Updates the last modification date to the current one.
      */
     public void updateTimestamp() {
         this.updatedAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 
     /**
-     * Convierte la tarea a una representación tipo JSON (como String).
+     * Converts the task to a JSON-like representation (as String).
      */
     public String toJson() {
         return String.format("{\n" +
@@ -159,18 +159,18 @@ public class Task {
     }
 
     /**
-     * Convierte una línea JSON a un objeto Task.
+     * Converts a JSON line to a Task object.
      * 
-     * @param json Línea JSON con los campos de la tarea.
-     * @return Tarea convertida.
+     * @param json JSON line with the task fields.
+     * @return Converted task.
      */
     public static Task fromJson(String jsonFile) {
-        // Captura de error si encuentra un JSON vacío.
+        // Error handling if it finds an empty JSON.
         if (jsonFile == null || jsonFile.trim().isEmpty()) {
             throw new IllegalArgumentException("JSON can't be null or empty.");
         }
 
-        // Limpia el JSON sin eliminar todas las comillas (solo las llaves).
+        // Cleans the JSON without removing all quotes (only the braces).
         jsonFile = jsonFile.trim();
         if (jsonFile.startsWith("{")) {
             jsonFile = jsonFile.substring(1);
@@ -179,11 +179,11 @@ public class Task {
             jsonFile = jsonFile.substring(0, jsonFile.length() - 1);
         }
 
-        // Separa elementos por coma (comas dentro de valores entre comillas no).
+        // Separates elements by comma (commas inside values between quotes don't).
         String[] elements = jsonFile.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
-        // Captura el error si los elementos del JSON son diferentes a 5, que son los
-        // atributos del Task.
+        // Error handling if JSON elements are different from 5, which are the
+        // Task attributes.
         if (elements.length != 5) {
             throw new IllegalArgumentException("Invalid number of elements, must be 5.");
         }
@@ -196,17 +196,17 @@ public class Task {
         String updatedAt = "";
 
         for (String element : elements) {
-            String[] keyValue = element.trim().split(":", 2); // Solo puede haber 2 elemento: clave y valor.
+            String[] keyValue = element.trim().split(":", 2); // Can only have 2 elements: key and value.
 
             if (keyValue.length != 2) {
                 continue;
             }
 
-            // Elimina las comillas de la clave y el valor
-            String key = keyValue[0].trim().replace("\"", ""); // Clave.
-            String value = keyValue[1].trim().replace("\"", ""); // Valor.
+            // Removes quotes from key and value
+            String key = keyValue[0].trim().replace("\"", ""); // Key.
+            String value = keyValue[1].trim().replace("\"", ""); // Value.
 
-            // Guarda los valores en sus variables correspondientes según la clave.
+            // Saves values in their corresponding variables according to the key.
             switch (key) {
                 case "id":
                     id = value;
@@ -232,7 +232,7 @@ public class Task {
             }
         }
 
-        // Para comprobar que los id son únicos.
+        // To check that ids are unique.
         int taskId = Integer.parseInt(id);
         if (taskId >= nextId) {
             nextId = taskId + 1;
@@ -242,7 +242,7 @@ public class Task {
     }
 
     /**
-     * Devuelve una representación legible de la tarea.
+     * Returns a readable representation of the task.
      */
     @Override
     public String toString() {
