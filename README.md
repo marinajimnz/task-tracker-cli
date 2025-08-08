@@ -1,143 +1,147 @@
-# Task Tracker CLI (https://roadmap.sh/backend/projects)
+# Task Tracker CLI
 
-Un proyecto de interfaz de línea de comandos (CLI) simple para gestionar y rastrear tus tareas diarias. Esta aplicación te permite mantener un registro de lo que necesitas hacer, lo que ya has completado y en lo que estás trabajando actualmente.
+A simple command-line interface (CLI) project to manage and track your daily tasks. This application allows you to keep track of what you need to do, what you've already completed, and what you're currently working on.
 
-## Descripción
+## Description
 
-Task Tracker es una herramienta de línea de comandos que te ayuda a organizar tus tareas de manera eficiente. Todas las tareas se almacenan en un archivo JSON local, lo que hace que sea fácil de usar y no requiere configuración adicional.
+Task Tracker is a command-line tool that helps you organize your tasks efficiently. All tasks are stored in a local JSON file, making it easy to use and requiring no additional setup.
 
-## Características
+## Features
 
-- ✅ **Agregar tareas**: Crea nuevas tareas con descripciones personalizadas
-- ✏️ **Actualizar tareas**: Modifica la descripción de tareas existentes
-- 🗑️ **Eliminar tareas**: Borra tareas que ya no necesitas
-- 📝 **Marcar progreso**: Cambia el estado de las tareas (pendiente, en progreso, completada)
-- 📋 **Listar tareas**: Visualiza todas las tareas o filtra por estado
-- 💾 **Almacenamiento local**: Las tareas se guardan en un archivo JSON
+- ✅ **Add tasks**: Create new tasks with custom descriptions
+- ✏️ **Update tasks**: Modify the description of existing tasks
+- 🗑️ **Delete tasks**: Remove tasks you no longer need
+- 📝 **Mark progress**: Change task status (pending, in progress, completed)
+- 📋 **List tasks**: View all tasks or filter by status
+- 💾 **Local storage**: Tasks are saved in a JSON file
 
-## Requisitos
+## Requirements
 
-- Lenguaje de programación compatible (Python, JavaScript, etc.)
-- Sin dependencias externas - solo módulos nativos del sistema de archivos
+- Programming language: Java
+- No external dependencies - only native file system modules
 
-## Instalación
+## Installation
 
-1. Clona o descarga el proyecto
-2. Navega al directorio del proyecto
-3. Asegúrate de que el archivo ejecutable tenga permisos de ejecución
+1. Clone or download the project
+2. Navigate to the project directory
+3. Ensure the executable file has execution permissions
 
-## Uso
+## Usage
 
-### Comandos Disponibles
+### Available Commands
 
-#### Agregar una nueva tarea
+#### Add a new task
 ```bash
-task-cli add "Comprar víveres"
-# Salida: Task added successfully (ID: 1)
+TaskCLI add "Buy groceries"
+# Output: Task added successfully (ID: 1)
 ```
 
-#### Actualizar una tarea existente
+#### Update an existing task
 ```bash
-task-cli update 1 "Comprar víveres y cocinar la cena"
+TaskCLI update 1 "Buy groceries and cook dinner"
 ```
 
-#### Eliminar una tarea
+#### Delete a task
 ```bash
-task-cli delete 1
+TaskCLI delete 1
 ```
 
-#### Marcar una tarea como en progreso
+#### Mark a task as in progress
 ```bash
-task-cli mark-in-progress 1
+TaskCLI mark-in-progress 1
 ```
 
-#### Marcar una tarea como completada
+#### Mark a task as completed
 ```bash
-task-cli mark-done 1
+TaskCLI mark-done 1
 ```
 
-#### Listar todas las tareas
+#### List all tasks
 ```bash
-task-cli list
+TaskCLI list-all
 ```
 
-#### Listar tareas por estado
+#### List tasks by status
 ```bash
-# Listar tareas completadas
-task-cli list done
+# List completed tasks
+TaskCLI list-done
 
-# Listar tareas pendientes
-task-cli list todo
+# List pending tasks
+TaskCLI list-to-do
 
-# Listar tareas en progreso
-task-cli list in-progress
+# List tasks in progress
+TaskCLI list-in-progress
 ```
 
-## Estructura de las Tareas
+## Task Structure
 
-Cada tarea contiene las siguientes propiedades:
+Each task contains the following properties:
 
-- **id**: Identificador único de la tarea
-- **description**: Descripción breve de la tarea
-- **status**: Estado actual (`todo`, `in-progress`, `done`)
-- **createdAt**: Fecha y hora de creación
-- **updatedAt**: Fecha y hora de la última actualización
+- **id**: Unique task identifier
+- **description**: Brief task description
+- **status**: Current status (`todo`, `in-progress`, `done`)
+- **createdAt**: Creation date and time
+- **updatedAt**: Last update date and time
 
-## Almacenamiento
+## Storage
 
-Las tareas se almacenan en un archivo `tasks.json` en el directorio actual. Este archivo se crea automáticamente si no existe.
+Tasks are stored in a `tasks.json` file in the current directory. This file is automatically created if it doesn't exist.
 
-Ejemplo de estructura del archivo JSON:
+Example JSON file structure:
 ```json
 [
   {
     "id": 1,
-    "description": "Comprar víveres",
-    "status": "todo",
+    "description": "Buy groceries",
+    "status": "To_DO,
     "createdAt": "2024-01-15T10:30:00Z",
     "updatedAt": "2024-01-15T10:30:00Z"
   }
 ]
 ```
 
-## Estados de las Tareas
+## Task States
 
-- **`todo`**: Tarea pendiente por realizar
-- **`in-progress`**: Tarea en progreso
-- **`done`**: Tarea completada
+- **`todo`**: Pending task to be done
+- **`in-progress`**: Task currently in progress
+- **`done`**: Completed task
 
-## Implementación
+## Implementation
 
-### Características Técnicas
+### Technical Features
 
-- Utiliza argumentos posicionales en línea de comandos
-- Interactúa con el sistema de archivos usando módulos nativos
-- Manejo de errores y casos límite
-- Sin dependencias externas
+- Uses positional command-line arguments
+- Interacts with the file system using native modules
+- Error handling and edge cases
+- No external dependencies
 
-### Flujo de Desarrollo Recomendado
+### Recommended Development Flow
 
-1. **Configuración del entorno**: Elige tu lenguaje de programación preferido
-2. **Inicialización**: Crea la estructura básica del CLI
-3. **Implementación incremental**: Desarrolla una funcionalidad a la vez
-4. **Pruebas**: Verifica cada característica antes de continuar
-5. **Finalización**: Limpia el código y documenta
+1. **Environment setup**: Choose your preferred programming language
+2. **Initialization**: Create the basic CLI structure
+3. **Incremental implementation**: Develop one feature at a time
+4. **Testing**: Verify each feature before continuing
+5. **Finalization**: Clean up code and document
 
-## Contribución
+## Contribution
 
-Este proyecto está diseñado como ejercicio de práctica para mejorar habilidades de programación, incluyendo:
+This project is designed as a practice exercise to improve programming skills, including:
 
-- Trabajo con el sistema de archivos
-- Manejo de entrada de usuario
-- Construcción de aplicaciones CLI
-- Manipulación de datos JSON
+- Working with the file system
+- Handling user input
+- Building CLI applications
+- JSON data manipulation
 
-## Notas
+## Notes
 
-- El archivo JSON se crea automáticamente en el directorio actual
-- Los IDs de las tareas se asignan automáticamente de forma incremental
-- Todas las fechas se almacenan en formato ISO
+- The JSON file is automatically created in the current directory
+- Task IDs are automatically assigned incrementally
+- All dates are stored in ISO format
 
 ---
 
-Empieza a organizar tus tareas de manera eficiente con Task Tracker CLI 🚀
+Start organizing your tasks efficiently with Task Tracker CLI 🚀
+
+## Project URL
+
+This project is part of the roadmap.sh backend projects: https://roadmap.sh/backend/projects
