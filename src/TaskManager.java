@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -53,6 +52,9 @@ public class TaskManager {
         Task taskToUpdate = getTaskById(id);
         if (taskToUpdate != null) {
             taskToUpdate.setDescription(newDescription);
+            System.out.println("Task with id " + id + " updated successfully");
+        } else {
+            System.out.println("ID: " + id + " doesn't exist.");
         }
 
     }
@@ -66,7 +68,10 @@ public class TaskManager {
         Task taskToDelete = getTaskById(id);
         if (taskToDelete != null) {
             tasks.remove(taskToDelete);
+            System.out.println("Task with id " + id + " deleted successfully");
             saveTasks();
+        } else {
+            System.out.println("ID: " + id + " doesn't exist.");
         }
 
     }
@@ -80,7 +85,10 @@ public class TaskManager {
         Task taskToUpdate = getTaskById(id);
         if (taskToUpdate != null) {
             taskToUpdate.setStatus(status);
+            System.out.println("Task with id " + id + " updated successfully to status: " + status);
             saveTasks();
+        } else {
+            System.out.println("ID: " + id + " doesn't exist.");
         }
     }
 
